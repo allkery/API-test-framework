@@ -1,7 +1,7 @@
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
 
 
-class GeoSchma(BaseModel):
+class GeoSchema(BaseModel):
     lat: str 
     lng: str
 
@@ -11,7 +11,7 @@ class AddressSchema(BaseModel):
     suite: str
     city: str
     zipcode: str
-    geo: GeoSchma
+    geo: GeoSchema
 
 
 class CompanySchema(BaseModel):
