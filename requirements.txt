@@ -1,0 +1,6 @@
+requests
+pytest
+pytest-allure
+allure-pytest
+pydantic[email]
+python-dotenv

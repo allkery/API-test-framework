@@ -1,0 +1,27 @@
+# переменные окружения
+.env
+
+# кэш python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# кэш pytest
+.pytest_cache/
+
+# Allure результаты и отчеты
+allure-results/
+allure-report/
+
+# виртуальное окружение
+venv/
+.venv/
+env/
+
+# VSCode
+.vscode/
+
+# Windows мусор
+Thumbs.db
+Desktop.ini
