@@ -1,5 +1,6 @@
 import pytest
 from models.todo import TodoSchema
+from utils.assertions import assert_list_not_empty, assert_status_code
 
 
 def test_get_todos(api_client):
@@ -7,8 +8,8 @@ def test_get_todos(api_client):
 
     response = api_client.get("/todos")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for todo in response.json():
         TodoSchema(**todo)
@@ -23,8 +24,8 @@ def test_get_todos_by_user_id(api_client, user_id):
 
     response = api_client.get(f"/users/{user_id}/todos")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for todo in response.json():
         validated = TodoSchema(**todo)
@@ -40,8 +41,8 @@ def test_get_todo_by_id(api_client, todo_id):
 
     response = api_client.get(f"/todos/{todo_id}")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     validated = TodoSchema(**response.json())
     assert validated.id == todo_id
