@@ -21,7 +21,7 @@ def test_get_comments(api_client):
 def test_get_comments_for_post(api_client, post_id):
     """получить комментарии для поста"""
 
-    response = api_client.get(f"/posts/{post_id}/comments")
+    response = api_client.get(f"/comments?postId={post_id}")
     assert response.status_code == 200
     assert len(response.json()) > 0
 
