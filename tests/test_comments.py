@@ -1,5 +1,6 @@
 import pytest
 from models.comment import CommentSchema
+from utils.assertions import assert_status_code, assert_list_not_empty
 
 
 def test_get_comments(api_client):
@@ -7,8 +8,8 @@ def test_get_comments(api_client):
 
     response = api_client.get("/comments")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for comment in response.json():
         CommentSchema(**comment)
@@ -22,8 +23,9 @@ def test_get_comments_for_post(api_client, post_id):
     """получить комментарии для поста"""
 
     response = api_client.get(f"/comments?postId={post_id}")
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for comment in response.json():
         CommentSchema(**comment)
