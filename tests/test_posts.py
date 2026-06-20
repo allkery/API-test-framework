@@ -100,3 +100,15 @@ def test_delete_post(api_client, post_id):
 
     assert response.status_code == 200
     assert response.json() == {}
+
+
+@pytest.mark.parametrize(
+        "post_id",
+        [23, 45, 67, 89, 12, 34, 56, 78, 90, 100]
+    )
+def test_get_comments_for_post(api_client, post_id):
+    """получить комментарии для поста"""
+
+    response = api_client.get(f"/posts/{post_id}/comments")
+    assert response.status_code == 200
+    assert len(response.json()) > 0
