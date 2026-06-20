@@ -1,6 +1,7 @@
 import pytest
 from models.album import AlbumSchema
 from models.photo import PhotoSchema
+from utils.assertions import assert_list_not_empty, assert_status_code
 
 
 def test_get_albums(api_client):
@@ -8,8 +9,8 @@ def test_get_albums(api_client):
 
     response = api_client.get("/albums")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for album in response.json():
         AlbumSchema(**album)
@@ -24,8 +25,8 @@ def test_get_album_by_id(api_client, album_id):
 
     response = api_client.get(f"/albums/{album_id}")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     validated = AlbumSchema(**response.json())
     assert validated.id == album_id
@@ -40,8 +41,8 @@ def test_get_albums_by_user_id(api_client, user_id):
 
     response = api_client.get(f"/users/{user_id}/albums")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for album in response.json():
         validated = AlbumSchema(**album)
@@ -57,8 +58,8 @@ def test_get_photos_for_album(api_client, album_id):
 
     response = api_client.get(f"/albums/{album_id}/photos")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for photo in response.json():
         PhotoSchema(**photo)
