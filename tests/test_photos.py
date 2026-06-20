@@ -1,5 +1,6 @@
 import pytest
 from models.photo import PhotoSchema
+from utils.assertions import assert_list_not_empty, assert_status_code
 
 
 def test_get_photos(api_client):
@@ -7,8 +8,8 @@ def test_get_photos(api_client):
 
     response = api_client.get("/photos")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     for photo in response.json():
         PhotoSchema(**photo)
@@ -23,8 +24,8 @@ def test_get_photo_by_id(api_client, photo_id):
 
     response = api_client.get(f"/photos/{photo_id}")
 
-    assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert_status_code(response, 200)
+    assert_list_not_empty(response)
 
     validated = PhotoSchema(**response.json())
     assert validated.id == photo_id
