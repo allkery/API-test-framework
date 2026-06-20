@@ -49,6 +49,7 @@ def test_get_todos_by_user_id(api_client, user_id):
             assert validated.userId == user_id
 
 
+@allure.title("Получить задачу по айди")
 @pytest.mark.parametrize(
         "todo_id",
         [1, 5, 10, 15, 20, 25, 30, 35, 40, 45]
