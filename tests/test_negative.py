@@ -61,3 +61,10 @@ def test_create_post_without_payload(api_client):
     response = api_client.post("/posts")
 
     assert response.status_code == 201
+
+
+def test_get_post_with_string_id(api_client):
+    """получить пост с строковым ID"""
+    
+    response = api_client.get("/posts/abc")
+    assert response.status_code == 404
